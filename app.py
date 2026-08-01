@@ -1,6 +1,5 @@
 import streamlit as st
 from services.audio_recorder import record_audio
-#from services.live_audio import start_live_audio
 from services.gemini_service import speech_to_text
 from services.tts_service import text_to_speech
 from database.db import create_table
@@ -14,7 +13,6 @@ from database.models import (
     get_total_words,
     get_total_characters
 )
-from services.live_transcriber import get_latest
 import os
 
 # ---------------- CUSTOM CSS ---------------- #
@@ -146,10 +144,6 @@ st.set_page_config(
 
 create_table()
 
-live_text = get_latest()
-
-if live_text:
-    st.session_state.transcript += " " + live_text
 # Session State
 if "transcript" not in st.session_state:
     st.session_state.transcript = ""
