@@ -236,12 +236,16 @@ with col1:
     audio = record_audio()
 
     if audio:
+
         st.audio(audio["bytes"], format="audio/wav")
 
-        transcript = speech_to_text(
-            audio["bytes"],
-            language_hint=lang_map[language]
-        )
+        with st.spinner("Transcribing..."):
+            transcript = speech_to_text(
+                audio["bytes"],
+                language_hint=lang_map[language]
+            )
+
+        st.session_state.transcript = transcript
     
     # Transcript Display
     st.markdown("---")
