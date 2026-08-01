@@ -233,15 +233,15 @@ with col1:
     
     # Audio Recording (Live)
 
-    audio_container = st.container()
+    audio = record_audio()
 
-    with audio_container:
+    if audio:
+        st.audio(audio["bytes"], format="audio/wav")
 
-        audio_queue = start_live_audio()
-
-        if not audio_queue.empty():
-
-            st.success("🎙 Receiving Live Audio Frames...")
+        transcript = speech_to_text(
+            audio["bytes"],
+            language_hint=lang_map[language]
+        )
     
     # Transcript Display
     st.markdown("---")
